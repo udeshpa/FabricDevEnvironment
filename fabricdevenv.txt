@@ -1,0 +1,113 @@
+Node 8.x
+
+node -v //check version
+
+nvm //supports multiple node versions
+
+git : 2.9 or higher
+
+python 2.7.x
+
+python -v //to check the python version
+
+npm install -g yo
+
+npm install -g composer-cli
+
+composer -v // check > 0.20.1
+
+node-gyp package //Need to install xcode for mac
+
+npm install -g composer-rest-server
+
+composer-rest-server -v //version 0.20.1 or above
+
+npm install -g generator-hyperledger-composer
+
+//Creates 
+
+yo --generators: You should see this generator
+
+Install visual code composer extension Hyperledger composer
+
+//Syntax highlighting and real time validation of the model
+
+Install docker.
+docker -v
+
+
+fabric: 
+
+Mac: Native Installation 
+
+Virtual Machine :
+Hypervisor: The virtualization system that creates and runs virtual machines. Oracle VirtualBox, Vagrant
+
+Installation is fast
+
+Mixed mode setup: 
+	virtual machine: install ubuntu, docker, fabric tool and components.
+	On host native install: node composer, visual studio on host 
+	Use the native tools to communicate with the hyperledger tools via tcp connection
+
+	vagrant: Tool for building and managing virtual machine environments in a single workflow,
+
+
+
+https://hyperledger.github.io/composer/latest/
+Click on Docs --> Installing --> Installing the Development Environment
+
+mkdir ~/fabric-dev-servers && cd ~/fabric-dev-servers
+
+curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz
+tar -xvf fabric-dev-servers.tar.gz
+
+cd fabric-tools
+
+downloadFabric.sh //download all the docker images
+
+startFabric.sh
+
+createPeerAdminCard.sh
+
+yo hyperledger-composer //Generates the scaffolding for the business network or model for the business network.
+
+//cards
+
+composer card list
+
+composer card create --help
+//Need to provide business network name
+
+
+
+To create an archieve
+composer archive create -t dir -n ../  
+
+
+//To install
+composer network install -a test-bna\@0.0.2.bna -c PeerAdmin@hlfv1
+
+composer network start -c PeerAdmin@hlfv1 -n test-bna -V 0.0.1 -A admin -S adminpw
+
+//Import network admincard
+composer card import -f admin\@test-bna.card
+
+
+//upgrade network.
+composer network install -a test-bna\@0.0.3.bna -c PeerAdmin@hlfv1
+composer network upgrade -c PeerAdmin@hlfv1 -n test-bna -V 0.0.3
+
+
+//Ping a network
+composer network ping -c admin@test-bna2
+composer network list -c admin@test-bna
+
+//Create participant
+composer participant add -c admin@test-bna -d '{"$class":"test.SampleParticipant","participantId":"myid1@biznet.org","firstName":"Mae","lastName":"Smith"}'
+
+//Create a new identity -- thsi creates a new card that can be imported by the person
+composer identity issue -c admin@test-bna -f myid1.card -u myid1 -a "resource:test.SampleParticipant#myid1@biznet.org"
+
+
+composer participant add -c admin\@airlinev9 -d '{ "$class": "org.acme.airline.participant.ACMENetworkAdmin", "participantKey": "johnD", "contact": { "$class": "org.acme.airline.participant.Contact", "fName": "john", "lname": "Doe", "email": "jd@abc.com" } }'

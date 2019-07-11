@@ -1,0 +1,6 @@
+// Returns all trades 
+query AllTrades {
+  description: "Returns all trades in the registry"
+  statement:  
+    SELECT  sample1.TradeData
+}
